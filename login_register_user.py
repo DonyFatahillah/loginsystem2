@@ -2,8 +2,20 @@
 # Created By : Dony a.k.a scioss.
 # SISTEM LOGIN SEDERHANA
 #-----------------------------------------
+import json
+
 
 data_user = []
+
+fileName = "data_pengguna.json"
+
+try:
+    with open(fileName, 'r') as file:
+        data_user = json.load(file)
+    print("sukses load data")
+except (FileNotFoundError, json.JSONDecodeError):
+    print("file tidak ditemukan atau data tercorrupt, memakai list kosong.")
+
 
 email = ['@gmail.com', '@outlook.com', '@yahoo.com', '@std.trisakti.ac.id', '@mail.com']
 
@@ -214,11 +226,16 @@ def showMenu():
         elif opsi == "6":
             list_user()
         elif opsi == "7":
+            with open(fileName, "w") as file:
+                json.dump(data_user, file)
+            print("sukses menyimpan data")
             break
         elif opsi == "Admin":
             list_user_admin()
         else:
             print("Opsi tidak valid!")
 
+
 if __name__ == "__main__":
     showMenu()
+    
