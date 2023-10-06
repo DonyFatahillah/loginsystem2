@@ -3,7 +3,7 @@
 # SISTEM LOGIN SEDERHANA
 #-----------------------------------------
 import json
-
+import time
 
 data_user = []
 
@@ -229,6 +229,9 @@ def showMenu():
             with open(fileName, "w") as file:
                 json.dump(data_user, file)
             print("sukses menyimpan data")
+            time.sleep(1)
+            print("Otomatis Keluar dalam 10 detik.")
+            time.sleep(10)
             break
         elif opsi == "Admin":
             list_user_admin()
@@ -238,4 +241,4 @@ def showMenu():
 
 if __name__ == "__main__":
     showMenu()
-    
+    time.sleep(1)
