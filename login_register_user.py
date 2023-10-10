@@ -3,6 +3,7 @@
 # SISTEM LOGIN SEDERHANA
 # BESERTA MENU MENU OPERASI
 #-----------------------------------------
+
 import json
 import time
 import os
@@ -27,8 +28,6 @@ email = ['@gmail.com', '@outlook.com', '@yahoo.com', '@std.trisakti.ac.id', '@ma
 
 isTrue = True
 
-
-
 def create_user():
 
     while True:
@@ -39,7 +38,7 @@ def create_user():
             continue
 
     
-        emails = input("Masukan Email : ")
+        emails = input("Masukan Email : ").lower()
         emailValid = True
         for ending in email:
             if emails.endswith(ending):
@@ -75,11 +74,12 @@ def create_user():
             user = {'nama': username, 'email': emails, 'password': password, 'permission': 'default'}
             data_user.append(user)           
             print("Berhasil mendaftarkan pengguna {}!".format(username))
+            mainMenu2()
             break
 
 def login():
     while isTrue:
-        print("\nLogin User\n")
+        print("\n======Login User======\n")
         username = input("Masukan Username : ")
         password = input("Masukan Password : ")
         loginSuccess = False
@@ -88,7 +88,7 @@ def login():
                 clear()
                 if user['permission'] == 'Admin':
                     print("Berhasil Login!")
-                    print("Selamat Datang {}".format(user['nama']))
+                    print("Selamat Datang admin {}".format(user['nama']))
                     loginSuccess = True
                     mainMenuAsAdmin()
                     break
@@ -416,11 +416,49 @@ def konversiSuhu():
         ulangi = input("ulangi program? (y/n) : ")
         if ulangi.lower() != "y":
             break
+
+def binarycode():
+    while True:
+        print("===PROGRAM KONVERSI BILANGAN===")
+        print("1.) Angka Ke Biner >> ")
+        print("2.) Biner Ke Angka >> ")
+        print("3.) Exit")
+        opsi = input("Opsi : ")
+
+
+        while opsi.isdigit() and opsi == "1":
+            angka = int(input("Masukan Angka : "))
+
+            print(f"{angka} ke Biner adalah {format(angka, 'b')}")
+            leave = input("kembali ke menu? y/n : ").lower()
+            if leave in ("y", "yes"):
+                break
+            elif leave in ("n", "no"):
+                continue
+            else:
+                break
+
+        while opsi.isdigit() and opsi == "2":
+            biner = input("Masukan Angka Biner : ")
+
+            binerInt = int(biner, 2)
+
+            print(f"{biner} ke Angka adalah {int(binerInt)} ")
+            if leave in ("y", "yes"):
+                break
+            elif leave in ("n", "no"):
+                continue
+            else:
+                break
+        if opsi.isdigit() and opsi == "3":
+            print("Terimakasih Sudah Menggunakan Program ini <3 *muach")
+            break 
+        
     
 def pytagoras():
-    import math
+    
     while True:
-
+        import math
         print("""
             
 Kalkulator Pytagoras
@@ -497,33 +535,64 @@ def mainMenu():
         print("a.) Calculator >>")
         print("b.) Pytagoras >>")
         print("c.) Konversi Suhu >>")
+        print("d.) Binary Conversion >>")
         print("=========")
         print("0.) Exit")
+        print("=========")
         opsi = input(">> ").lower()
         
         if opsi == "a": 
             clear()          
             calculator()
-            continue
+            break
         elif opsi == "b":
             clear()
-            pytagoras()
-            leave = input("keluar? (y/n) = ").lower()
-            if leave != "n":
-                continue
-            else:
-                break
+            pytagoras()           
+            break
         elif opsi == "c":
             clear()
-            konversiSuhu()
-            leave = input("keluar? (y/n) = ").lower()
-            if leave != "n":
-                continue
-            else: 
-                break
+            konversiSuhu()            
+            break
+        elif opsi == "d":
+            clear()
+            binarycode()
+            break
         elif opsi == "0":
             clear()
-            showMenu()
+            mainMenu2()
+            break
+
+def mainMenuAdmin():
+    while True:
+        print("===OPSI===")
+        print("a.) Calculator >>")
+        print("b.) Pytagoras >>")
+        print("c.) Konversi Suhu >>")
+        print("d.) Binary Conversion >>")
+        print("=========")
+        print("0.) Exit")
+        print("=========")
+        opsi = input(">> ").lower()
+        
+        if opsi == "a": 
+            clear()          
+            calculator()
+            break
+        elif opsi == "b":
+            clear()
+            pytagoras()           
+            break
+        elif opsi == "c":
+            clear()
+            konversiSuhu()            
+            break
+        elif opsi == "d":
+            clear()
+            binarycode()
+            break
+        elif opsi == "0":
+            clear()
+            mainMenuAsAdmin()
             break
             
 def mainMenu2():
@@ -533,6 +602,7 @@ def mainMenu2():
         print("2.) Hapus User >>")
         print("3.) Menu >>")
         print("4.) List User >>")
+        print("=========")
         print("0.) Keluar >>")
         print("==========")
         opsi = input(">> ")
@@ -556,6 +626,7 @@ def mainMenu2():
         elif opsi == "0":
             clear()
             showMenu()
+            break
         else:
             print("Opsi tidak valid")
             break
@@ -569,6 +640,7 @@ def mainMenuAsAdmin():
         print("3.) Menu >>")
         print("4.) List User >>")
         print("5.) List User (Admin) >>")
+        print("=========")
         print("0.) Keluar >>")
         print("==========")
         opsi = input(">> ")
@@ -583,7 +655,7 @@ def mainMenuAsAdmin():
             showMenu()
         elif opsi == "3":
             clear()
-            mainMenu()
+            mainMenuAdmin()
             continue
         elif opsi == "4":
             clear()
@@ -597,6 +669,7 @@ def mainMenuAsAdmin():
         elif opsi == "0":
             clear()
             showMenu()
+            break
         else:
             print("Opsi tidak valid")
             break
@@ -611,7 +684,8 @@ def showMenu():
         print("4.) Hapus User >>")
         print("5.) Lupa Password >>")
         print("6.) List User >>")
-        print("7.) Keluar")
+        print("=========")
+        print("0.) Keluar >>")
         print("==========")
         opsi = input(">> ")
 
@@ -651,14 +725,15 @@ def showMenu():
             time.sleep(2)
             clear()
             continue
-        elif opsi == "7":
+        elif opsi == "0":
             with open(fileName, "w") as file:
                 json.dump(data_user, file)
             print("sukses menyimpan data")
             print("Otomatis Keluar dalam 5 detik.")
-            time.sleep(5)
             clear()
-            break        
+
+            break
+                    
         elif opsi == "Admin":
             clear()
             list_user_admin()
